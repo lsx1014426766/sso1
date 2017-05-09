@@ -1,0 +1,58 @@
+ 1tomcat启动，加载配置文件
+Starting service Catalina
+org.apache.catalina.core.StandardEngine start
+Starting Servlet Engine: Apache Tomcat/6.0.37
+ Parsing configuration file [struts-default.xml]
+ Parsing configuration file [struts-plugin.xml]
+Starting Coyote HTTP/1.1 on http-8080
+org.apache.jk.common.ChannelSocket init
+JK: ajp13 listening on /0.0.0.0:8009
+ org.apache.jk.server.JkMain start
+ Jk running ID=0 time=0/103  config=null
+org.apache.catalina.startup.Catalina start
+ Server startup in 7218 ms
+
+2访问链接：
+localhost:8080/SSO_same_domain/helloworld
+localhost:8080/SSO_same_domain/login.jsp
+3访问struts的action：
+ 默认以.action结尾
+ Action的默认后缀是.action，在直接访问一个Action时，如超级链接等，
+ 必须写成actionName.action的形式，
+ 但如果用Struts的Form标签，则在Form的action属性中不能加.action，后缀会自动加上。
+
+4遇到的错误：
+ HTTP Status 404 - 
+ There is no Action mapped for namespace [/sso] and action name [] associated with context path [/SSO_same_domain].
+ 
+
+ 
+5 Invalid <url-pattern> /*.action in filter mapping
+    所以，为什么定义“/*.action”这样一个看起来很正常的匹配会错？   
+在web.xml文件中，以下语法用于定义映射：
+
+　　以“/‘开头和以”/*“结尾的是用来做路径映射的。
+
+　　以前缀“*.”开头的是用来做扩展映射的。
+
+　　“是用来定义default servlet映射的。
+
+　　剩下的都是用来定义详细映射的。比如： /aa/bb/cc.action
+
+　　
+        因为这个匹配即属于路径映射，也属于扩展映射，导致容器无法判断
+ 	<!--http://localhost:8080/SSO_same_domain/sso/dologin--->
+ 	
+ 	同父域下的SSO：   定义了2个命名空间  
+ 	http://localhost:8080/SSO_same_domain/demo2/main.action
+ 	http://localhost:8080/SSO_same_domain/demo1/main.action
+ 	关系放在cookie里，不论通过的么demo1,还是demo2登录成功后，再另一方登录时
+ 	直接去判断cookie里有没有登录成功的一个cokie值，若存在且值正确，则直接免去再登录
+ 
+6 跨域访问 中间传递服务器  服务间的通信，模拟2个域名下的访问
+	 在本机的user--system32 --hosts下添加域名
+	 127.0.0.1 demo1.x.com
+	 127.0.0.1 demo2.x.com
+	 127.0.0.1 check.x.com  登录校验
+	   
+	   
