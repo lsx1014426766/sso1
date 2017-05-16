@@ -11,31 +11,18 @@
  -->
  
 <struts>
-
+     <!-- 修改struts2框架的默认扩展后缀名 -->
+	<constant name="struts.action.extension" value="action,do,myc"></constant>
     <package name="default" namespace="/" extends="struts-default">
+        <!-- http://localhost:8080/struts1/helloworld.action -->
         <action name="helloworld" class="com.superxu.action.HelloworldAction">
-            <result>/result.jsp</result>
+            <result>/index.jsp</result>
         </action>
     </package>
 <!--  <constant name="" value=""></constant>--> 
 
-	<package name="sso" namespace="/sso" extends="struts-default">
-
-	    <action name="dologin" class="com.superxu.action.SSOAction" method="dologin">
-	        <result name="success" type="redirect">${gotourl}</result>
-	        <result name="login">/login.jsp</result>
-	    </action>
-	</package>
-	<package name="demo1" namespace="/demo1" extends="struts-default">
-	    <action name="main" class="com.superxu.demo1.Demo1Action" method="main">
-	        <result name="success">/success1.jsp</result>
-	        <result name="login">/login.jsp</result>
-	    </action>
-	</package>
-	<package name="demo2" namespace="/demo2" extends="struts-default">
-	    <action name="main" class="com.superxu.demo2.Demo2Action" method="main">
-	        <result name="success">/success2.jsp</result>
-	        <result name="login">/login.jsp</result>
-	    </action>
-	</package>
+	
+	<include file="struts-user.xml"></include>
+	<include file="struts-sso.xml"></include>
+    <include file="struts-demo.xml"></include>
 </struts>

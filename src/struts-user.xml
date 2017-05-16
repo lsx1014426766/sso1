@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="user" extends="struts-default" namespace="/user">
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		<!-- 配置默认的action -->
+		<action name="list" class="com.zrgk.action.ListAction" method="list">
+			<result name="list" type="dispatcher">/list.jsp</result>
+		</action>
+
+		<action name="toAdd">
+			<result>/WEB-INF/addUser.jsp</result>
+		</action>
+
+		<action name="add" class="com.zrgk.action.AddAction" method="add">
+			<!-- 一个action去调用另外一个action -->
+			<result type="redirectAction">list</result>
+		</action>
+
+
+		<action name="delete" class="com.zrgk.action.DeleteAction">
+			<!-- 一个action去调用另外一个action -->
+			<result type="redirectAction">
+				<!-- 跨包调用action 需要指定namespace和actionName的值 -->
+				<param name="namespace">/user</param>
+				<param name="actionName">list</param>
+			</result>
+		</action>
+
+		<action name="load" class="com.zrgk.action.LoadAction">
+			<result name="success">
+				/updateUser.jsp
+			</result>
+		</action>
+
+		<action name="update" class="com.zrgk.action.UpdateAction">
+			<result name="success" type="redirectAction">
+				list
+			</result>
+		</action>
+		<!-- 通配符配置 简化struts中action的配置量 
+		http://localhost:8080/struts1/opt.jsp
+		http://localhost:8080/struts1/user/OptAction_opt_add.action
+		http://localhost:8080/struts1/user/OptAction_opt_delete.action
+		http://localhost:8080/struts1/user/OptAction_opt_update.action-->
+		<action name="*_opt_*" class="com.zrgk.action.{1}" method="{2}">
+			<result name="success">/opt.jsp</result>
+		</action>
+
+		<!-- 动态方法配置 
+		http://localhost:8080/struts1/user/opt2!add
+		http://localhost:8080/struts1/user/opt2!delete
+		http://localhost:8080/struts1/user/opt2!update
+		-->
+		<action name="opt2" class="com.zrgk.action.OptAction">
+			<result name="success">/opt.jsp</result>
+		</action>
+		<action name="regist" class="com.zrgk.action.RegistAction">
+			<result name="ok">/ok.jsp</result>
+			<result name="regist">/WEB-INF/regist.jsp</result>
+		</action>
+
+		<!-- 默认调用ActionSupport类 的execute方法 返回success字符串 -->
+		<action name="toRegist">
+			<result type="dispatcher">/WEB-INF/regist.jsp</result>
+		</action>
+
+	</package>
+</struts>

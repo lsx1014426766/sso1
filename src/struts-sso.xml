@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+		<!-- 模拟同父域下的访问 -->
+	<package name="sso" namespace="/sso" extends="struts-default">
+	    <action name="dologin" class="com.superxu.action.SSOAction" method="dologin">
+	        <result name="success" type="redirect">${gotourl}</result>
+	        <result name="login">/ssologin.jsp</result>
+	    </action>
+	</package>
+	<package name="demo1" namespace="/ssodemo1" extends="struts-default">
+	    <action name="main" class="com.superxu.demo1.Demo1Action" method="main">
+	        <result name="success">/success.jsp</result>
+	        <result name="login">/ssologin.jsp</result>
+	    </action>
+	</package>
+	<package name="demo2" namespace="/ssodemo2" extends="struts-default">
+	    <action name="main" class="com.superxu.demo2.Demo2Action" method="main">
+	        <result name="success">/success.jsp</result>
+	        <result name="login">/ssologin.jsp</result>
+	    </action>
+	</package>
+</struts>

@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form  action="login.action"  method="post">
-		用户名:<input  name="name">
-		<br/>
-		密码:<input  name="pwd">
-		<br/>
+<form  action="demo/login2.action" method="post">
+	用户名：  <input  name="user.name"/>
+	<br/>
+	密码：  <input  name="user.pwd"/>
+	<br/>
 	<input  type="submit"  value="登录"/>
-	</form>
-
+</form>
+  
 
 </body>
 </html>

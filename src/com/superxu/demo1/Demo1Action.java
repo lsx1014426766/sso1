@@ -9,7 +9,7 @@ import com.superxu.action.util.SSOCheck;
 
 //先校验cookie的有效性  在校验登录
 public class Demo1Action extends ActionSupport{
-
+    //此属性可在xml配置中获取 CM
 	private String gotourl;
 	public String main(){
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -17,7 +17,7 @@ public class Demo1Action extends ActionSupport{
 		if(ok){
 			return SUCCESS;
 		}
-		gotourl = "/demo1/main.action";
+		gotourl = "/ssodemo1/main.action";
 		return "login";
 	}
 	public String getGotourl() {

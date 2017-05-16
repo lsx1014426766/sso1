@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="demo"  extends="struts-default" namespace="/demo">
+		<!-- 配置全局页面 -->
+		<global-results>
+			<result  name="error">/error.jsp</result>
+		</global-results>
+		
+		<!-- 全局异常 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action  name="opt1"  class="com.zrgk.action.OptAction"  method="opt1">
+			<result>/success.jsp</result>
+		</action>
+		<action  name="opt2"  class="com.zrgk.action.OptAction" method="opt2">
+			<result>/success.jsp</result>
+		</action>
+		
+		<!--默认execute http://localhost:8080/struts1/demo/login1.action -->
+		<action  name="login1"  class="com.zrgk.action.LoginAction">
+			<!-- 获取Action类中属性的值 -->
+			<result>/${nextPage}</result>
+		</action>
+		<action  name="opt_*"  class="com.zrgk.action.OptAction" method="{1}">
+			<!-- 获取Action类中属性的值 -->
+			<result>/success.jsp</result>
+		</action>
+		<!-- name:  请求名    class:  action类的全路径  method:指定方法名 ,默认是execute
+		 http://localhost:8080/struts1/demo/hello.action 
+		-->
+		<action name="hello"  class="com.zrgk.action.HelloAction"  method="sayHello">
+			<!-- name:action类的方法的返回值  标示一个页面 默认是success   -->
+			<result>/success.jsp</result>
+		</action>
+		<!-- http://localhost:8080/struts1/demo/login.action -->
+		<action name="login"  class="com.zrgk.action.LoginAction" method="login">
+			<!-- name:action类的方法的返回值  标示一个页面 默认是success   -->
+			<result name="success">/success.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- http://localhost:8080/struts1/login2.jsp -->
+		<action  name="login2"  class="com.zrgk.action.LoginAction2">
+			<result name="success">/success2.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		
+		<action  name="login3"  class="com.zrgk.action.LoginAction3">
+			<result name="success">/success3.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		
+	</package>	
+</struts>

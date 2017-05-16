@@ -16,7 +16,7 @@ import com.superxu.action.util.SSOCheck;
  *
  */
 public class SSOAction extends ActionSupport{
-
+//Action对象属性
 	private String username;
 	private String password;
 	private String gotourl;

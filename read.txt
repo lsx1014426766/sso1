@@ -13,8 +13,16 @@ org.apache.catalina.startup.Catalina start
  Server startup in 7218 ms
 
 2访问链接：
-localhost:8080/SSO_same_domain/helloworld
-localhost:8080/SSO_same_domain/login.jsp
+http://localhost:8080/struts1/
+如果配置<url-pattern>*.action</url-pattern> 访问action时必须带有后缀http://localhost:8080/struts1/helloworld.action
+如果配置<url-pattern>/*</url-pattern> 访问action时不用带有后缀http://localhost:8080/struts1/helloworld.actionlocalhost:8080/struts1/helloworld
+如果配置了<constant name="struts.action.extension" value="action,do,myc"></constant>
+http://localhost:8080/struts1/helloworld.action
+http://localhost:8080/struts1/helloworld.do
+http://localhost:8080/struts1/helloworld.myc
+上面几个都可以访问的到，是同一个action,且后缀必须有，否则会报错404
+http://localhost:8080/struts1/demo/opt_update.action
+localhost:8080/struts1/sso/login.jsp
 3访问struts的action：
  默认以.action结尾
  Action的默认后缀是.action，在直接访问一个Action时，如超级链接等，

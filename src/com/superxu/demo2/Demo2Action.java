@@ -15,7 +15,7 @@ public class Demo2Action extends ActionSupport{
 		if(ok){
 			return SUCCESS;
 		}
-		gotourl = "/demo2/main.action";
+		gotourl = "/ssodemo2/main.action";
 		return "login";
 	}
 	public String getGotourl() {
