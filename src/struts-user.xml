@@ -4,13 +4,19 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<package name="user" extends="struts-default" namespace="/user">
+
 		<global-results>
 			<result name="error">/error.jsp</result>
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
 		</global-exception-mappings>
+	
+		
 		<!-- 配置默认的action -->
+		<!-- 
+		http://localhost:8080/struts1/list.jsp
+		 -->
 		<action name="list" class="com.zrgk.action.ListAction" method="list">
 			<result name="list" type="dispatcher">/list.jsp</result>
 		</action>
@@ -70,6 +76,9 @@
 		<!-- 默认调用ActionSupport类 的execute方法 返回success字符串 -->
 		<action name="toRegist">
 			<result type="dispatcher">/WEB-INF/regist.jsp</result>
+		</action>
+        <action  name="tag"  class="com.zrgk.action.TagAction">
+			<result>/tag.jsp</result>
 		</action>
 
 	</package>

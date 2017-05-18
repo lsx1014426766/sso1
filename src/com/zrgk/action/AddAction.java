@@ -7,7 +7,7 @@ import com.zrgk.dao.impl.UserDaoJDBCImpl;
 import com.zrgk.entity.User;
 
 public class AddAction extends ActionSupport{
-	// input属性
+	// input属性 必须提供get set方法 属性注入
 	private User u;
 	
 	public String add() throws Exception{

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+ <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+ <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
+    
+	<package name="pb" extends="struts-default" namespace="/pb">
+	
+	
+	 <default-action-ref name="index" />
+	
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		<action name="index">
+            <result type="redirectAction">
+                <param name="actionName">helloworld</param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+		
+		<!-- Add packages here
+		localhost:8080/struts1/addHouse.jsp
+		localhost:8080/struts1/pb/house.action
+		涉及内容： tag struts2标签的使用  后台封装对象
+		ckeditor的使用   引入ckeditor.js
+		 -->
+   
+        <action name="house"  class="com.pb.web.action.HouseAction" method="addHouse">
+        	<result>/addHouse.jsp</result>
+        </action>
+        <action name="add" class="com.pb.web.action.AddAction">
+            <result>/addSuccess.jsp</result> 
+        </action>
+    </package>
+</struts>

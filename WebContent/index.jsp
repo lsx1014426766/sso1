@@ -26,5 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<a href="demo/opt_delete.action">删除</a>
 	<br/>
 	<a href="demo/opt_update.action">修改</a>
+	
+	<a href="code.jsp">验证码示例(stream Result)</a><br/>
+	
   </body>
 </html>

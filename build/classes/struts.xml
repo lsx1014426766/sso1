@@ -13,6 +13,8 @@
 <struts>
      <!-- 修改struts2框架的默认扩展后缀名 -->
 	<constant name="struts.action.extension" value="action,do,myc"></constant>
+     <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
     <package name="default" namespace="/" extends="struts-default">
         <!-- http://localhost:8080/struts1/helloworld.action -->
         <action name="helloworld" class="com.superxu.action.HelloworldAction">
@@ -21,8 +23,10 @@
     </package>
 <!--  <constant name="" value=""></constant>--> 
 
-	
+	<include file="struts-tarena.xml"></include>
 	<include file="struts-user.xml"></include>
 	<include file="struts-sso.xml"></include>
     <include file="struts-demo.xml"></include>
+    <include file="struts-pb.xml"></include>
+    <include file="struts-search.xml"></include>
 </struts>

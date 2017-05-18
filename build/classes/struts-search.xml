@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<!-- localhost:8080/struts1/search.jsp
+		注意search.js里发送ajax请求的路径url要正确
+		此示例是及时调用后台接收信息查询结果
+		这里action返回的是List<String>keywords
+		-->
+	<package name="search" namespace="/search"  extends="json-default">
+    	<action name="getKeyword" class="com.zrgk.action.SearchAction" method="getKeyword">
+    		<result type="json">
+    			<param name="includeProperties">
+                	keywords.*
+             	</param>
+    		</result>
+    	</action>
+	</package>
+	<!-- localhost:8080/struts1/downloadFile.jsp
+		 Action对象中存放了2个属性：is(inputStream)，filename(string)
+		 问题：虽然在action里对文件名的中文做了编码，但是在页面上得到的是ascii码???why
+		-->
+	<package name="down" namespace="/down" extends="struts-default"> 
+ 		<action name="doDownloadFile" class="com.zrgk.action.DownloadAction" method="doDownloadFile">
+ 			<result name="success" type="stream">
+ 				<param name="inputName">is</param><!--文件对应的流对象  -->
+ 				<param name="contentDisposition">attachment;filename="${fileName}"</param><!--发送给客户端的文件名，需要注意中文乱码问题  -->
+ 				<param name="contentType">application/octet-stream</param><!--文件类型，application/octet-stream是不限制类型  -->
+ 				<param name="bufferSize">1024</param><!--缓冲区大小  -->
+ 			</result>
+ 		</action>
+    </package>
+    	<!-- localhost:8080/struts1/singleFileUpload.jsp
+		 文件上传
+		-->
+	  <package name="upload" namespace="/upload" extends="struts-default"> 
+ 		<action name="doUpload" class="com.zrgk.action.UploadAction" method="doUpload">
+ 			<interceptor-ref name="fileUpload">
+ 				<param name="allowedExtensions">jpg,jpeg,gif,png</param><!-- 也可以使用allowedTypes来控制上传的文件类型 -->
+ 			</interceptor-ref>
+ 			<interceptor-ref name="defaultStack"/>
+ 			<result>/singleSuccess.jsp</result>
+ 			<!-- 上面引入的文件上传拦截器验证失败时 -->
+ 			<result name="input">/error.jsp</result>
+ 		</action>
+    </package>
+	
+  <!--  继承jfreechart-default包
+  localhost:8080/struts1/chart.jsp
+   -->
+    <package name="chart" namespace="/chart" extends="jfreechart-default"> 
+		<action  name="pie1"  class="com.zrgk.action.JFreeChartAction">
+			<!-- 图表响应 -->
+			<result  type="chart">
+				<param name="jfreechart">chart</param>
+				<param name="height">450</param>
+    			<param name="width">450</param>
+			</result>
+		</action>
+		<action  name="pie2"  class="com.zrgk.action.ChartAction">
+			<!-- 图表响应 -->
+			<result  type="chart">
+				<param name="value">jfchart</param>
+				<param name="height">350</param>
+    			<param name="width">450</param>
+			</result>
+		</action>
+		
+		
+		<action  name="bar"  class="com.zrgk.action.BarAction" >
+			<!-- 图表响应  后台准备数据，result负责设置大小等-->
+			<result  type="chart">
+				<param name="value">chart</param>
+				<param name="height">350</param>
+    			<param name="width">450</param>
+			</result>
+		</action>
+    </package>
+    <!-- 拦截器 -->
+    <package name="interceptor"  extends="struts-default" namespace="/interceptor">
+		<interceptors>
+			<!-- 拦截器的声明 -->
+			<interceptor name="time" class="com.interceptor.myinterceptor.MyInterceptor"></interceptor>
+		</interceptors>	
+		<!-- localhost:8080/struts1/interceptor/login.action 
+		要访问此action，先经过拦截器
+		-->	
+		<action name="login"  class="com.interceptor.action.LoginAction">
+			<!-- 如果用户自定义了拦截器，那么默认的拦截器不在提供 -->
+			<interceptor-ref name="time"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 默认success  -->
+			<result>/ok.jsp</result>
+		</action>
+		<!-- localhost:8080/struts1/interceptor/regist.action?name=lsx -->
+		<action name="regist"  class="com.interceptor.action.RegistAction">
+			<!-- 配置拦截器到对应action中 -->
+			<interceptor-ref name="time"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/ok.jsp</result>
+		</action>
+	</package>
+ <!-- 页面输入参数验证：
+      1xml配置方式 使用验证器
+      2手动在action内部做代码验证 -->
+ <package name="validate" namespace="/validate" extends="struts-default">
+        <!--xml配置方式 使用验证器
+        localhost:8080/struts1/register.jsp
+        localhost:8080/struts1/validate/register.action  -->
+        <action name="registerAction" class="com.pb.web.action.UserAction" method="register">
+            <!-- 验证失败，返回input,继续在注册页，并且显示错误信息 -->
+            <result name="input">/register.jsp</result>
+            <!-- 进入真正action，返回success时-->
+            <result>/register_success.jsp</result>
+        </action>
+        <!-- 手动验证方式
+        localhost:8080/struts1/login.jsp
+        http://localhost:8080/struts1/validate/login.action
+         -->
+        <action  name="login"  class="com.validate.action.LoginAction"  method="login">
+			<result>/success.jsp</result>		
+			<result name="input">/login.jsp</result>		
+		</action>
+        
+    </package>
+    <!-- 
+        localhost:8080/struts1/tag/select.action
+        struts标签 主要是form标签的使用 单选 复选 下拉
+         -->
+<package name="tag" extends="struts-default" namespace="/tag">
+  <action name="select" class="com.zrgk.action.SelectAction" method="select">
+    <result>/select.jsp</result>
+  </action>
+  </package>
+  <!-- 
+  localhost:8080/struts1//token/token.action
+   -->
+<constant name="struts.multipart.maxSize" value="2097152"></constant>
+	<package name="token"  extends="struts-default" namespace="/token">
+		<action  name="token"  class="com.zrgk.action.TokenAction">
+			<!-- 阻止表单重复提交 -->
+			<interceptor-ref name="tokenSession"></interceptor-ref>
+			<!-- <interceptor-ref name="token"></interceptor-ref> -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/success.jsp</result>		
+			<result name="invalid.token">/tokenMsg.jsp</result>
+			
+		</action>
+	</package>
+
+</struts>

@@ -21,8 +21,14 @@ gotourl=${gotourl}<br/>
     
      success!!!!
     欢迎${user.name}登录！！！
-    欢迎 <s:property   value="user.pwd"/>  登录！！！
+    欢迎 <s:property   value="user.pwd"/>  登录！！！<br/>
   
+<!-- 获取request,session,application中的值 -->
+	request中的值：  ${pwd}
+	<br/>
+	session中的值：  ${name}	
+	<br/>
+	application中的值：  ${interest}
 
 </body>
 </html>

@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
+encoding//WebContent/success2.jsp=UTF-8
 encoding//src/com/zrgk/action/LoginAction3.java=UTF-8
 encoding//src/com/zrgk/action/OptAction.java=gbk
+encoding//src/com/zrgk/action/TagAction.java=UTF-8
+encoding//src/struts.properties=gbk
 encoding/<project>=UTF-8
 encoding/read.txt=UTF-8

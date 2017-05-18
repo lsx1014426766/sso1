@@ -62,5 +62,11 @@ localhost:8080/struts1/sso/login.jsp
 	 127.0.0.1 demo1.x.com
 	 127.0.0.1 demo2.x.com
 	 127.0.0.1 check.x.com  登录校验
-	   
-	   
+
+7问题 ：
+  1添加注解jar报错 implement class 
+  2struts接收date类型属性输入报错	add.action   
+  3启动报错
+   NoClassDefFoundError: org/apache/struts2/views/TagLibraryDirectiveProvider
+       解决： struts2-dojo-plugin-2.3.32.jar ---》 struts2-dojo-plugin-2.1.8.jar
+       版本不兼容

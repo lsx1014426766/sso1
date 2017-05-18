@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <!-- Can not find the tag library descriptor for "http://java.sun.com/jsp/jstl/core"
+    去maven仓库下载jstl.jar,standard.jar
+     -->
  <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>  
  <%@ taglib prefix="s"  uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +35,7 @@
 	</c:forEach>
 		
 	</table>
-<a href="toAdd.action">添加用户</a>
+<a href="user/toAdd.action">添加用户</a>
 
 
 

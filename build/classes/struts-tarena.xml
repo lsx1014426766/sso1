@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+<!-- 
+localhost:8080/struts1/code1/imagecode.action
+下载随机生成的验证码图片
+ -->
+	<package name="code1" extends="struts-default" namespace="/code1">
+		<!-- Stream响应示例 -->
+		<action name="imagecode" 
+			class="com.tarena.action.ImageAction">
+			<result name="success" type="stream">
+			    <param name="contentType">image/jpeg</param> 
+			    <param name="contentDisposition">attachment;filename="code.jpg"</param>
+				<param name="inputName">imageStream</param>
+			</result>
+		</action>
+	</package>
+	<!-- 
+	localhost:8080/struts1/json/checkcode.action?code=aaa
+	 -->
+	<package name="code2" extends="json-default" namespace="/json" >
+		<action name="checkcode" 
+			class="com.tarena.action.CheckCodeAction">
+			<result type="json">
+				<param name="root">ok</param>  
+				<!-- <param name="includeProperties">ok,code,list.*</param>-->
+			</result>
+		</action>
+	</package>
+	
+	
+	
+</struts>
